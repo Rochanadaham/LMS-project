@@ -1,67 +1,100 @@
-<!-- Replace the script block at the bottom of your code verbatim with this clean version -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const loginForm = document.querySelector('.login-form');
-            const portalSelect = document.getElementById('portal-type');
-            const usernameInput = document.getElementById('username');
-            const passwordInput = document.getElementById('password');
+// =============================================================================
+// loging.js — Authentication & Login Logic
+// FIXED: Removed hardcoded localhost:3000 and old subfolder paths.
+// Uses a dynamic API_BASE that works on localhost AND on any deployed server.
+// =============================================================================
 
-            if (loginForm) {
-                loginForm.addEventListener('submit', (e) => {
-                    e.preventDefault(); // Stop the page from reloading normally
+// ─── Dynamic API Base Configuration ──────────────────────────────────────────
+// On GitHub Pages (static only) this won't reach a real backend.
+// When running locally with Node/Express, it hits your local server.
+// When deployed to a live server, update PRODUCTION_API_URL below.
 
-                    const selectedPortal = portalSelect.value;
-                    const enteredUser = usernameInput.value.trim();
-                    const enteredPass = passwordInput.value;
+const PRODUCTION_API_URL = ''; // e.g. 'https://your-api-server.com' — leave blank if same origin
 
-                    // 1. STUDENT PORTAL LOGIN VALIDATION
-                    if (selectedPortal === 'student') {
-                        if (enteredUser === 'student123' && enteredPass === 'student@2026') {
-                            // Success vibration pattern: single short pulse
-                            if (window.navigator.vibrate) window.navigator.vibrate(100);
-                            
-                            alert('Access Granted: Redirecting to Student Dashboard...');
-                            window.location.href = "C:\\Users\\rocha\\Downloads\\VAU\\LMS\\API\\Public\\stu dashboard 10.html";
-                        } else {
-                            // Error vibration pattern: double short alert buzzes
-                            if (window.navigator.vibrate) window.navigator.vibrate([100, 50, 100]);
-                            
-                            alert('Invalid Student Credentials!\nUse ID: student123\nPassword: student@2026');
-                        }
-                    }
+const API_BASE = (() => {
+  if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+    return 'http://localhost:3000'; // Local Express server
+  }
+  return PRODUCTION_API_URL || window.location.origin; // Same-origin fallback
+})();
 
-                    // 2. FACULTY PORTAL LOGIN VALIDATION
-                    else if (selectedPortal === 'faculty') {
-                        if (enteredUser === 'faculty123' && enteredPass === 'faculty@2026') {
-                            // Success vibration
-                            if (window.navigator.vibrate) window.navigator.vibrate(100);
-                            
-                            alert('Access Granted: Redirecting to Faculty Dashboard...');
-                            window.location.href = "C:\\Users\\rocha\\Downloads\\VAU\\LMS\\faculty-dashboard.html";
-                        } else {
-                            // Error vibration
-                            if (window.navigator.vibrate) window.navigator.vibrate([100, 50, 100]);
-                            
-                            alert('Invalid Faculty Credentials!\nUse ID: faculty123\nPassword: faculty@2026');
-                        }
-                    }
+// ─── Helper: Make API calls ───────────────────────────────────────────────────
+async function apiPost(endpoint, body) {
+  const response = await fetch(`${API_BASE}${endpoint}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'include', // Send cookies for session-based auth
+    body: JSON.stringify(body)
+  });
+  if (!response.ok) {
+    const err = await response.json().catch(() => ({ message: 'Server error' }));
+    throw new Error(err.message || `HTTP ${response.status}`);
+  }
+  return response.json();
+}
 
-                    // 3. ADMINISTRATOR PORTAL LOGIN VALIDATION
-                    else if (selectedPortal === 'admin') {
-                        if (enteredUser === 'admin123' && enteredPass === 'admin@2026') {
-                            // Success vibration
-                            if (window.navigator.vibrate) window.navigator.vibrate(100);
-                            
-                            alert('Access Granted: Redirecting to Admin Console...');
-                            window.location.href = "C:\\Users\\rocha\\Downloads\\VAU\\LMS\\admin-dashboard.html";
-                        } else {
-                            // Error vibration
-                            if (window.navigator.vibrate) window.navigator.vibrate([100, 50, 100]);
-                            
-                            alert('Invalid Administrator Credentials!\nUse ID: admin123\nPassword: admin@2026');
-                        }
-                    }
-                });
-            }
-        });
-    </script>
+async function apiGet(endpoint) {
+  const response = await fetch(`${API_BASE}${endpoint}`, {
+    method: 'GET',
+    credentials: 'include'
+  });
+  if (!response.ok) throw new Error(`HTTP ${response.status}`);
+  return response.json();
+}
+
+// ─── Login Handler ────────────────────────────────────────────────────────────
+async function handleLogin(event) {
+  if (event) event.preventDefault();
+
+  const username = document.getElementById('username')?.value?.trim();
+  const password = document.getElementById('password')?.value?.trim();
+  const errorEl  = document.getElementById('login-error');
+
+  if (!username || !password) {
+    if (errorEl) errorEl.textContent = 'Please enter your username and password.';
+    return;
+  }
+
+  try {
+    // FIXED: was '/LMS/API/login' or 'localhost:3000/login' — now uses API_BASE
+    const data = await apiPost('/api/login', { username, password });
+
+    if (data.role === 'student') {
+      // FIXED: was 'LMS/Public/stu dashboard 10.html' — now root-relative
+      window.location.href = 'stu dashboard 10.html';
+    } else if (data.role === 'faculty') {
+      window.location.href = 'faculty-dashboard.html';
+    } else if (data.role === 'admin') {
+      window.location.href = 'admin-dashboard.html';
+    } else {
+      window.location.href = 'index.html';
+    }
+  } catch (err) {
+    console.error('Login error:', err);
+    if (errorEl) errorEl.textContent = err.message || 'Login failed. Please try again.';
+  }
+}
+
+// ─── Logout Handler ───────────────────────────────────────────────────────────
+async function handleLogout() {
+  try {
+    await apiPost('/api/logout', {});
+  } catch (e) {
+    // Ignore logout errors — just redirect
+  }
+  // FIXED: was absolute path — now root-relative
+  window.location.href = 'loging 1.html';
+}
+
+// ─── Auto-attach form listener on DOMContentLoaded ───────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  const loginForm = document.getElementById('login-form');
+  if (loginForm) {
+    loginForm.addEventListener('submit', handleLogin);
+  }
+
+  const logoutBtn = document.getElementById('logout-btn');
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', handleLogout);
+  }
+});
