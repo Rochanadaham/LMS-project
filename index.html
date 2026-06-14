@@ -1,182 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FASVLE@UV | Faculty Management Workspace</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --primary-purple: #4B0082;
-      --surface-bg: #F8FAFC;
-      --panel-white: #FFFFFF;
-      --text-title: #0F172A;
-      --text-body: #475569;
-      --text-light: #94A3B8;
-      --border-subtle: #E2E8F0;
-      --alert-amber: #F59E0B;
-      --radius-xl: 16px;
-      --radius-md: 10px;
-      --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
-      --shadow-lg: 0 10px 15px -3px rgba(75,0,130,0.05);
-    }
-    body { font-family: 'Inter', sans-serif; background-color: var(--surface-bg); color: var(--text-body); min-height: 100vh; display: flex; flex-direction: column; }
-    .app-top-navbar {
-      position: fixed; top: 0; left: 0; right: 0; height: 70px;
-      background: rgba(255,255,255,0.85); backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border-subtle);
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 24px; z-index: 100;
-    }
-    .brand-space { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 18px; color: var(--primary-purple); }
-    .brand-logo-emblem { width: 36px; height: 36px; background: var(--primary-purple); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; color: white; font-size: 18px; }
-    .global-search-frame { position: relative; width: 100%; max-width: 400px; margin: 0 20px; }
-    .global-search-frame input { width: 100%; background-color: #F1F5F9; border: 1px solid transparent; border-radius: var(--radius-md); padding: 10px 16px 10px 40px; font-size: 14px; color: var(--text-title); }
-    .global-search-icon { position: absolute; left: 14px; top: 12px; color: var(--text-light); pointer-events: none; }
-    .navbar-user-actions { display: flex; align-items: center; gap: 12px; }
-    .nav-action-utility-btn { background: none; border: none; width: 40px; height: 40px; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; cursor: pointer; }
-    .user-avatar-badge { width: 40px; height: 40px; background: linear-gradient(135deg, var(--primary-purple), #7C3AED); color: white; font-weight: 700; font-size: 14px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid white; }
-    .workspace-housing { display: flex; padding-top: 70px; flex: 1; }
-    .workspace-sidebar { width: 260px; background-color: var(--panel-white); border-right: 1px solid var(--border-subtle); padding: 32px 16px; position: fixed; top: 70px; bottom: 0; left: 0; z-index: 90; overflow-y: auto; }
-    .sidebar-navigation-menu { list-style: none; display: flex; flex-direction: column; gap: 4px; }
-    .menu-link-wrapper a { display: flex; align-items: center; gap: 12px; padding: 12px 16px; color: var(--text-body); font-weight: 600; font-size: 14px; text-decoration: none; border-radius: var(--radius-md); transition: all 0.2s ease; }
-    .menu-link-wrapper a svg { width: 18px; height: 18px; color: var(--text-light); }
-    .menu-link-wrapper a:hover, .menu-link-wrapper.view-active a { background-color: rgba(75,0,130,0.06); color: var(--primary-purple); }
-    .workspace-main-panel { flex: 1; margin-left: 260px; padding: 40px 32px 100px 32px; max-width: 1200px; }
-    .view-content-segment { display: none; animation: fadeIn 0.4s forwards; }
-    .view-content-segment.active-segment { display: block; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-    .welcome-hero-banner { background: linear-gradient(135deg, var(--primary-purple) 0%, #2D006B 100%); border-radius: var(--radius-xl); padding: 32px; color: white; margin-bottom: 32px; }
-    .welcome-hero-banner h1 { font-size: 32px; font-weight: 800; margin-bottom: 6px; }
-    .welcome-hero-banner p { color: #E9D5FF; font-size: 15px; }
-    .faculty-metrics-strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-bottom: 32px; }
-    .faculty-stat-card { background: var(--panel-white); border: 1px solid var(--border-subtle); padding: 24px; border-radius: var(--radius-xl); box-shadow: var(--shadow-sm); }
-    .faculty-stat-card h4 { font-size: 12px; font-weight: 700; text-transform: uppercase; color: var(--text-light); margin-bottom: 4px; }
-    .faculty-stat-card .stat-amount { font-size: 28px; font-weight: 800; color: var(--text-title); }
-    .layout-section-heading { font-size: 20px; font-weight: 800; color: var(--text-title); margin-bottom: 20px; }
-    .moodle-courses-grid-matrix { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
-    .moodle-course-block-card { background: #FFFFFF; border: 1px solid #E4E4E7; border-radius: var(--radius-xl); overflow: hidden; display: flex; flex-direction: column; box-shadow: var(--shadow-sm); transition: all 0.25s ease; }
-    .moodle-course-block-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
-    .moodle-card-pattern-banner { height: 115px; width: 100%; }
-    .pattern-honey { background-color: #F5B041; background-image: linear-gradient(30deg, #F39C12 12%, transparent 12.5%, transparent 87%, #F39C12 87.5%); background-size: 20px 35px; }
-    .moodle-card-content-area { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
-    .moodle-course-block-card h3 { font-size: 18px; font-weight: 700; color: var(--text-title); margin-bottom: 4px; }
-    .moodle-academic-year-text { font-size: 13.5px; color: var(--text-body); margin-bottom: 20px; }
-    .btn-card-action-entry { width: 100%; background-color: var(--surface-bg); color: var(--text-title); border: 1px solid var(--border-subtle); padding: 12px; font-size: 14px; font-weight: 600; border-radius: var(--radius-md); cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; justify-content: center; gap: 8px; }
-    .moodle-course-block-card:hover .btn-card-action-entry { background-color: var(--primary-purple); color: white; border-color: var(--primary-purple); }
-    .site-workspace-footer { background-color: var(--panel-white); border-top: 1px solid var(--border-subtle); padding: 20px; text-align: center; font-size: 13px; color: var(--text-light); margin-top: auto; }
-    .site-workspace-footer a { color: var(--primary-purple); text-decoration: none; font-weight: 600; }
-    /* Quick-nav links in sidebar footer */
-    .sidebar-nav-footer { margin-top: 32px; padding-top: 20px; border-top: 1px solid var(--border-subtle); display: flex; flex-direction: column; gap: 8px; }
-    .sidebar-nav-footer a { font-size: 13px; color: var(--text-body); text-decoration: none; padding: 8px 12px; border-radius: var(--radius-md); font-weight: 500; }
-    .sidebar-nav-footer a:hover { background-color: var(--surface-bg); color: var(--primary-purple); }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connect with Vavuniya - LMS Portal</title>
+    <link rel="stylesheet" href="vau%20Home%20style.css">
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --text-main: #f8fafc;
+            --primary: #3b82f6;
+            --btn-hover: #2563eb;
+        }
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            text-align: center;
+            max-width: 600px;
+            padding: 20px;
+        }
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        .btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+        .btn-primary { background-color: var(--primary); color: white; }
+        .btn-primary:hover { background-color: var(--btn-hover); }
+        .btn-secondary { background-color: #334155; color: white; }
+        .btn-secondary:hover { background-color: #475569; }
+    </style>
 </head>
 <body>
-
-<header class="app-top-navbar">
-  <div class="brand-space">
-    <div class="brand-logo-emblem">🏛️</div>
-    <span>Vavuniya University LMS (Faculty)</span>
-  </div>
-  <div class="global-search-frame">
-    <span class="global-search-icon">🔍</span>
-    <input type="text" placeholder="Search assigned groups, courses, syllabi...">
-  </div>
-  <div class="navbar-user-actions">
-    <button class="nav-action-utility-btn" title="Messages">💬</button>
-    <div class="user-avatar-badge">FA</div>
-  </div>
-</header>
-
-<div class="workspace-housing">
-  <aside class="workspace-sidebar">
-    <ul class="sidebar-navigation-menu">
-      <li class="menu-link-wrapper view-active" data-target-view="dashboard-view">
-        <a href="#">
-          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
-          <span>🏡 Dashboard</span>
-        </a>
-      </li>
-      <li class="menu-link-wrapper" data-target-view="courses-view">
-        <a href="#">
-          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-          <span>🛠️ Course Management</span>
-        </a>
-      </li>
-    </ul>
-
-    <!-- FIXED: Page-level navigation — all now root-relative, no C:\ paths -->
-    <div class="sidebar-nav-footer">
-      <a href="index.html">🏠 Home</a>
-      <a href="stu dashboard 10.html">🎓 Student Dashboard</a>
-      <a href="admin-dashboard.html">🔧 Admin Panel</a>
-      <a href="loging 1.html">🔑 Login Page</a>
-      <a href="faculty-course-management.html">📋 Course Management</a>
-      <a href="Brik.html">ℹ️ About Brik Dev</a>
-    </div>
-  </aside>
-
-  <main class="workspace-main-panel">
-    <div id="dashboard-view" class="view-content-segment active-segment">
-      <div class="welcome-hero-banner">
-        <h1>Welcome, Dr. T. Silva</h1>
-        <p>Review course matrices, track student metrics parameters, and evaluate assignment file submissions.</p>
-      </div>
-      <div class="faculty-metrics-strip">
-        <div class="faculty-stat-card"><h4>Active Courses</h4><div class="stat-amount">4</div></div>
-        <div class="faculty-stat-card"><h4>Total Managed Students</h4><div class="stat-amount">156</div></div>
-        <div class="faculty-stat-card"><h4>Submissions Pending Review</h4><div class="stat-amount" style="color:var(--alert-amber);">12</div></div>
-      </div>
-      <h2 class="layout-section-heading">My Assigned Courses</h2>
-      <div class="moodle-courses-grid-matrix">
-        <div class="moodle-course-block-card">
-          <div class="moodle-card-pattern-banner pattern-honey"></div>
-          <div class="moodle-card-content-area">
-            <div>
-              <h3>Advanced Web Architecture</h3>
-              <p class="moodle-academic-year-text">Total Assigned Students: <strong>42 Students</strong></p>
-            </div>
-            <!-- FIXED: links to the correct root-level file -->
-            <button class="btn-card-action-entry" onclick="window.location.href='faculty-course-management.html'">
-              <span>Manage Course Matrix</span>
-              <span>&rarr;</span>
-            </button>
-          </div>
+    <div class="container">
+        <h1>Connect with <span>Vavuniya</span></h1>
+        <p>Experience real-time global connectivity with our distributed network infrastructure. Monitor data flows, track performance, and scale across continents with unprecedented reliability.</p>
+        
+        <div class="btn-group">
+            <a href="brik.html" class="btn btn-secondary">Start Exploring →</a>
+            <a href="loging%201.html" class="btn btn-primary">Student Portal</a>
+            <a href="vau%20Home%201.html" class="btn btn-secondary">University Home</a>
         </div>
-      </div>
     </div>
 
-    <div id="courses-view" class="view-content-segment">
-      <h2 class="layout-section-heading">🛠️ Course Management</h2>
-      <p style="color:var(--text-body);">
-        <!-- FIXED: links to root-level file -->
-        Full course management tools are in
-        <a href="faculty-course-management.html" style="color:var(--primary-purple);font-weight:600;">faculty-course-management.html</a>.
-      </p>
-    </div>
-  </main>
-</div>
-
-<!-- FIXED: footer link now uses root-relative Brik.html, NOT a C:\ local path -->
-<footer class="site-workspace-footer">
-  <p>Made with love by <a href="Brik.html">Rochana @ Brik Dev</a> &copy; 2026 University of Vavuniya.</p>
-</footer>
-
-<script>
-  document.querySelectorAll('[data-target-view]').forEach(item => {
-    item.addEventListener('click', function(e) {
-      e.preventDefault();
-      document.querySelectorAll('[data-target-view]').forEach(i => i.classList.remove('view-active'));
-      this.classList.add('view-active');
-      document.querySelectorAll('.view-content-segment').forEach(v => v.classList.remove('active-segment'));
-      const target = document.getElementById(this.getAttribute('data-target-view'));
-      if (target) target.classList.add('active-segment');
-    });
-  });
-</script>
+    <script src="vau%20Home%20java.js"></script>
 </body>
 </html>
