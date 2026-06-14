@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University of Vavuniya | LMS Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ==========================================================================
+           RESET & BASIC SETUP
+           ========================================================================== */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #4B0082; /* University Purple from Screenshot 2026-06-14 112536.png */
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* ==========================================================================
+           ANIMATED BACKGROUND BLOB GRADIENTS (Inspired by Screenshot 2026-06-14 112730.png)
+           ========================================================================== */
+        .bg-blob {
+            position: absolute;
+            background: linear-gradient(135deg, #6a0dad, #9333ea);
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.6;
+            z-index: 1;
+            animation: floatBlob 12s infinite alternate ease-in-out;
+        }
+
+        .blob-1 {
+            width: 500px;
+            height: 500px;
+            top: -10%;
+            left: -10%;
+        }
+
+        .blob-2 {
+            width: 600px;
+            height: 600px;
+            bottom: -15%;
+            right: -10%;
+            animation-delay: -4s;
+            background: linear-gradient(135deg, #3b0764, #4B0082);
+        }
+
+        .blob-3 {
+            width: 300px;
+            height: 300px;
+            top: 40%;
+            left: 75%;
+            animation-delay: -2s;
+            background: linear-gradient(135deg, #a855f7, #6a0dad);
+        }
+
+        @keyframes floatBlob {
+            0% { transform: translate(0px, 0px) scale(1); }
+            50% { transform: translate(40px, -60px) scale(1.1); }
+            100% { transform: translate(-20px, 20px) scale(0.95); }
+        }
+
+        /* ==========================================================================
+           MODERN CARD ARCHITECTURE
+           ========================================================================== */
+        .login-card {
+            position: relative;
+            background-color: #FDFBF7; /* Off-white container backdrop from Screenshot 2026-06-14 112730.png */
+            width: 100%;
+            max-width: 440px;
+            padding: 45px 40px;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Header Navigation Utilities inside Card */
+        .card-header-utils {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .back-arrow-btn {
+            background: none;
+            border: none;
+            color: #64748B;
+            font-size: 20px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .back-arrow-btn:hover {
+            color: #4B0082;
+        }
+
+        .menu-dots {
+            color: #64748B;
+            font-size: 18px;
+            letter-spacing: 1px;
+            cursor: pointer;
+        }
+
+        /* Avatar Emblem Header Component */
+        .portal-emblem-wrapper {
+            width: 80px;
+            height: 80px;
+            background-color: #000000; /* Minimal dark badge wrapper from Screenshot 2026-06-14 112730.png */
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .portal-emblem-wrapper svg {
+            width: 40px;
+            height: 40px;
+            fill: #FFFFFF;
+        }
+
+        .login-card h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1E293B;
+            margin-bottom: 35px;
+            text-align: center;
+        }
+
+        /* ==========================================================================
+           FORM FIELD LAYOUTS
+           ========================================================================== */
+        .login-form {
+            width: 100%;
+        }
+
+        .form-group {
+            position: relative;
+            margin-bottom: 28px;
+            width: 100%;
+        }
+
+        /* Minimalistic Input fields style from Screenshot 2026-06-14 112730.png */
+        .form-group input, .form-group select {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 1.5px solid #CBD5E1;
+            padding: 10px 4px;
+            font-size: 15px;
+            color: #1E293B;
+            font-family: inherit;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-group select {
+            cursor: pointer;
+            appearance: none;
+            -webkit-appearance: none;
+        }
+
+        /* Persistent Custom Select Indicator Arrow */
+        .form-group .select-arrow {
+            position: absolute;
+            right: 8px;
+            top: 14px;
+            color: #64748B;
+            pointer-events: none;
+            font-size: 12px;
+        }
+
+        /* Label behaviors */
+        .form-group label {
+            position: absolute;
+            left: 4px;
+            top: -12px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #64748B;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.2s ease;
+            pointer-events: none;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-bottom-color: #4B0082; /* University Highlight Focus Color */
+        }
+
+        /* ==========================================================================
+           BUTTONS & UTILITY ROUTING ACTION ELEMENTS
+           ========================================================================== */
+        .btn-submit-lms {
+            width: 100%;
+            background-color: #000000; /* Dark minimal action block style from Screenshot 2026-06-14 112730.png */
+            color: #FFFFFF;
+            border: none;
+            padding: 14px;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 10px;
+            margin-bottom: 24px;
+            transition: all 0.2s ease;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-submit-lms:hover {
+            background-color: #222222;
+            transform: translateY(-1px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-links-footer {
+            width: 100%;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            font-size: 13px;
+        }
+
+        .form-links-footer a {
+            color: #64748B;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .form-links-footer a:hover {
+            color: #4B0082;
+            text-decoration: underline;
+        }
+
+        .sign-up-prompt {
+            color: #64748B;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        .sign-up-prompt a {
+            color: #3b82f6; /* Blue call-to-action link style from Screenshot 2026-06-14 112730.png */
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .sign-up-prompt a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Blurred Background Decorative Matrix Layer -->
+    <div class="bg-blob blob-1"></div>
+    <div class="bg-blob blob-2"></div>
+    <div class="bg-blob blob-3"></div>
+
+    <!-- Main Dynamic Interface Layout Card -->
+    <div class="login-card">
+        
+        <!-- Utility Top Utilities Header Bar -->
+        <div class="card-header-utils">
+            <!-- Redirects back cleanly to your localized Landing UI frame view -->
+            <a href="C:\Users\rocha\Downloads\VAU\vau Home 1.html" class="back-arrow-btn" title="Return to Home">&larr;</a>
+            <div class="menu-dots">&#9776;</div>
+        </div>
+
+        <!-- Campus Badge Graphic Emblem Holder -->
+        <div class="portal-emblem-wrapper">
+            <!-- Minimal University Building/Avatar graphic path -->
+            <svg viewBox="0 0 24 24">
+                <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/>
+                <path d="M17 12v5c0 1.66-2.24 3-5 3s-5-1.34-5-3v-5l5 2.73L17 12z"/>
+            </svg>
+        </div>
+
+        <h2>University of Vavuniya LMS</h2>
+
+        <!-- Interactive Form Action Pipeline -->
+        <form class="login-form" action="#" method="POST">
+            
+            <!-- Portal Designation Multi-selector Element -->
+            <div class="form-group">
+                <label for="portal-type">Portal Type</label>
+                <select id="portal-type" name="portal_type" required>
+                    <option value="student">Student Portal</option>
+                    <option value="faculty">Faculty Portal</option>
+                    <option value="admin">Administrator Portal</option>
+                </select>
+                <span class="select-arrow">&#9662;</span>
+            </div>
+
+            <!-- Identity Username Field -->
+            <div class="form-group">
+                <label for="username">User Identification ID</label>
+                <input type="text" id="username" name="username" placeholder="e.g. VAU/IS/2026/001" required autocomplete="username">
+            </div>
+
+            <!-- Password Cryptographic field -->
+            <div class="form-group">
+                <label for="password">Security Password</label>
+                <input type="password" id="password" name="password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" required autocomplete="current-password">
+            </div>
+
+            <!-- Execution Action Submission Control Button -->
+            <button type="submit" class="btn-submit-lms">Sign In</button>
+
+            <!-- Bottom Context Links Footnote Grouping -->
+            <div class="form-links-footer">
+                <a href="#">Forgot Password?</a>
+                <a href="C:\Users\rocha\Downloads\VAU\vau Home 1.html">Return to University Website</a>
+                <div class="sign-up-prompt">
+                    Don't have an account? <a href="#">Sign up now!</a>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+    <!-- Add this JavaScript right before your </body> tag to handle the mock logins -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const loginForm = document.querySelector('.login-form');
+            const portalSelect = document.getElementById('portal-type');
+            const usernameInput = document.getElementById('username');
+            const passwordInput = document.getElementById('password');
+
+            if (loginForm) {
+                loginForm.addEventListener('submit', (e) => {
+                    e.preventDefault(); // Stop the page from reloading normally
+
+                    const selectedPortal = portalSelect.value;
+                    const enteredUser = usernameInput.value.trim();
+                    const enteredPass = passwordInput.value;
+
+                    // 1. STUDENT PORTAL LOGIN VALIDATION
+                    if (selectedPortal === 'student') {
+                        if (enteredUser === 'student123' && enteredPass === 'student@2026') {
+                            alert('Access Granted: Redirecting to Student Dashboard...');
+                            window.location.href = "C:\\Users\\rocha\\Downloads\\VAU\\LMS\\API\\Public\\stu dashboard 10.html";
+                        } else {
+                            alert('Invalid Student Credentials!\nUse ID: student123\nPassword: student@2026');
+                        }
+                    }
+
+                    // 2. FACULTY PORTAL LOGIN VALIDATION
+                    else if (selectedPortal === 'faculty') {
+                        if (enteredUser === 'faculty123' && enteredPass === 'faculty@2026') {
+                            alert('Access Granted: Redirecting to Faculty Dashboard...');
+                            window.location.href = "C:\\Users\\rocha\\Downloads\\VAU\\LMS\\faculty-dashboard.html";
+                        } else {
+                            alert('Invalid Faculty Credentials!\nUse ID: faculty123\nPassword: faculty@2026');
+                        }
+                    }
+
+                    // 3. ADMINISTRATOR PORTAL LOGIN VALIDATION
+                    else if (selectedPortal === 'admin') {
+                        if (enteredUser === 'admin123' && enteredPass === 'admin@2026') {
+                            alert('Access Granted: Redirecting to Admin Console...');
+                            window.location.href = "C:\\Users\\rocha\\Downloads\\VAU\\LMS\\admin-dashboard.html";
+                        } else {
+                            alert('Invalid Administrator Credentials!\nUse ID: admin123\nPassword: admin@2026');
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

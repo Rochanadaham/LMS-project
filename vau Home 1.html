@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University of Vavuniya | Higher Seat of Learning & Research</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ==========================================================================
+           RESET & SYSTEM BASIS
+           ========================================================================== */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FFFFFF;
+            color: #4B0082;
+            line-height: 1.6;
+            font-size: 16px;
+            overflow-x: hidden;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+
+        /* ==========================================================================
+           LAYOUT STRUCTURE CONTAINERS
+           ========================================================================== */
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 24px;
+        }
+
+        .section-container-narrow {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 24px;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 32px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .section-divider {
+            border: 0;
+            border-top: 1px solid #4B0082;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* ==========================================================================
+           CRITICAL ANNOUNCEMENT BANNER
+           ========================================================================== */
+        .announcement-banner {
+            background-color: #4B0082;
+            color: #FFFFFF;
+            text-align: center;
+            padding: 10px 24px;
+            font-size: 14px;
+            border-bottom: 1px solid #FFFFFF;
+        }
+
+        /* ==========================================================================
+           HEADER & SEARCH BAR
+           ========================================================================== */
+        .site-header {
+            background-color: #4B0082;
+            color: #FFFFFF;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #4B0082;
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 24px;
+            position: relative;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .univ-title {
+            font-weight: 700;
+            font-size: 18px;
+            letter-spacing: 0.5px;
+        }
+
+        .univ-sub {
+            font-size: 11px;
+            letter-spacing: 2px;
+        }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+            border: 1px solid #FFFFFF;
+            background-color: #4B0082;
+        }
+
+        .search-container input {
+            background: transparent;
+            border: none;
+            padding: 8px 12px;
+            color: #FFFFFF;
+            font-family: inherit;
+            font-size: 14px;
+        }
+
+        .search-container input::placeholder {
+            color: #FFFFFF;
+            opacity: 0.7;
+        }
+
+        .search-container input:focus {
+            outline: none;
+        }
+
+        .search-container button {
+            background-color: #FFFFFF;
+            color: #4B0082;
+            border: none;
+            padding: 8px 16px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .search-container button:hover {
+            background-color: #4B0082;
+            color: #FFFFFF;
+            outline: 1px solid #FFFFFF;
+        }
+
+        /* ==========================================================================
+           NAVIGATION DESKTOP SYSTEM
+           ========================================================================== */
+        .nav-list {
+            display: flex;
+            align-items: center;
+            list-style: none;
+            gap: 8px;
+        }
+
+        .nav-link, .dropdown-toggle {
+            background: transparent;
+            border: none;
+            color: #FFFFFF;
+            padding: 8px 16px;
+            font-size: 15px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .nav-link:hover, .dropdown-toggle:hover, .dropdown-item:hover .dropdown-toggle {
+            background-color: #FFFFFF;
+            color: #4B0082;
+        }
+
+        .dropdown-item {
+            position: relative;
+        }
+
+        /* Dropdown Menu Overlay Panel */
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #4B0082;
+            border: 1px solid #FFFFFF;
+            min-width: 260px;
+            list-style: none;
+            display: none;
+            flex-direction: column;
+            padding: 8px 0;
+            box-shadow: none;
+        }
+
+        .dropdown-menu li a {
+            color: #FFFFFF;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-size: 14px;
+            display: block;
+        }
+
+        .dropdown-menu li a:hover {
+            background-color: #FFFFFF;
+            color: #4B0082;
+        }
+
+        /* Nested Megamenu Architecture for Complex Course Structures */
+        .menu-subheading {
+            font-weight: 700 !important;
+            text-transform: uppercase;
+            font-size: 12px !important;
+            letter-spacing: 0.5px;
+            background-color: #4B0082;
+            color: #FFFFFF !important;
+            cursor: default;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            display: block;
+            padding: 10px 20px;
+        }
+
+        .nested-menu {
+            list-style: none;
+            padding-left: 12px;
+            margin-bottom: 8px;
+        }
+
+        .nested-menu li a {
+            padding: 6px 20px !important;
+            font-size: 13px !important;
+        }
+
+        /* Desktop Hover Mechanism via CSS fallback if JS fails */
+        @media (min-width: 992px) {
+            .dropdown-item:hover .dropdown-menu {
+                display: flex;
+            }
+        }
+
+        /* Mobile Toggle Layout Elements */
+        .mobile-nav-toggle {
+            display: none;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 6px;
+            padding: 4px;
+        }
+
+        .hamburger-line {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background-color: #FFFFFF;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        /* ==========================================================================
+           [SECTION 1] HERO BANNER
+           ========================================================================== */
+        .hero-banner {
+            background-color: #4B0082;
+            color: #FFFFFF;
+            padding: 80px 24px;
+            text-align: center;
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-content h1 {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .hero-tagline {
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto 32px auto;
+            opacity: 0.9;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+        }
+
+        .hero-btn-primary {
+            background-color: #FFFFFF;
+            color: #4B0082;
+            text-decoration: none;
+            padding: 12px 28px;
+            font-weight: 700;
+            border: 2px solid #FFFFFF;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .hero-btn-primary:hover {
+            background-color: #4B0082;
+            color: #FFFFFF;
+        }
+
+        .hero-btn-secondary {
+            background-color: #4B0082;
+            color: #FFFFFF;
+            text-decoration: none;
+            padding: 12px 28px;
+            font-weight: 700;
+            border: 2px solid #FFFFFF;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .hero-btn-secondary:hover {
+            background-color: #FFFFFF;
+            color: #4B0082;
+        }
+
+        /* ==========================================================================
+           [SECTION 2] ABOUT BRIEF
+           ========================================================================== */
+        .about-text {
+            font-size: 20px;
+            color: #4B0082;
+            font-weight: 400;
+            line-height: 1.6;
+        }
+
+        /* ==========================================================================
+           [SECTION 3] FACULTIES GRID
+           ========================================================================== */
+        .faculties-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .faculty-card {
+            background-color: #FFFFFF;
+            border: 2px solid #4B0082;
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: flex-start;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .faculty-card h3 {
+            font-size: 22px;
+            margin-bottom: 16px;
+        }
+
+        .faculty-card p {
+            margin-bottom: 24px;
+            font-size: 15px;
+        }
+
+        .card-link {
+            color: #4B0082;
+            font-weight: 700;
+            text-decoration: none;
+            border-bottom: 2px solid #4B0082;
+            padding-bottom: 2px;
+        }
+
+        .faculty-card:hover {
+            background-color: #4B0082;
+            color: #FFFFFF;
+        }
+
+        .faculty-card:hover .card-link {
+            color: #FFFFFF;
+            border-color: #FFFFFF;
+        }
+
+        /* ==========================================================================
+           [SECTION 4] LMS ACCESS CONSOLE
+           ========================================================================== */
+        .lms-integration-section {
+            padding: 40px 24px;
+        }
+
+        .lms-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .lms-main-button {
+            background-color: #4B0082;
+            color: #FFFFFF;
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: 700;
+            padding: 16px 40px;
+            border: 2px solid #4B0082;
+            display: inline-block;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .lms-main-button:hover {
+            background-color: #FFFFFF;
+            color: #4B0082;
+        }
+
+        .lms-subtext {
+            font-size: 14px;
+            color: #4B0082;
+        }
+
+        /* ==========================================================================
+           [SECTION 5] NEWS & ANNOUNCEMENTS
+           ========================================================================== */
+        .section-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .section-header-row .section-title {
+            margin-bottom: 0;
+        }
+
+        .section-action-link {
+            color: #4B0082;
+            font-weight: 700;
+            text-decoration: none;
+            border-bottom: 2px solid #4B0082;
+        }
+
+        .section-action-link:hover {
+            border-bottom-style: dashed;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .news-card {
+            border: 1px solid #4B0082;
+            padding: 24px;
+            background-color: #FFFFFF;
+        }
+
+        .news-date {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .news-card h3 {
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+
+        .news-card p {
+            font-size: 14px;
+        }
+
+        /* ==========================================================================
+           [SECTION 6] QUICK ACTIONS GRID (2x3 Layout Matrix)
+           ========================================================================== */
+        .quick-links-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, minmax(120px, auto));
+            gap: 16px;
+        }
+
+        .quick-link-card {
+            border: 1px solid #4B0082;
+            background-color: #FFFFFF;
+            color: #4B0082;
+            text-decoration: none;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .quick-link-icon {
+            font-size: 20px;
+            font-weight: 700;
+            align-self: flex-end;
+        }
+
+        .quick-link-title {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .quick-link-card:hover {
+            background-color: #4B0082;
+            color: #FFFFFF;
+        }
+
+        /* ==========================================================================
+           [SECTION 7] RESEARCH SPOTLIGHT
+           ========================================================================== */
+        .research-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .research-card {
+            border: 1px solid #4B0082;
+            padding: 32px;
+            background-color: #FFFFFF;
+        }
+
+        .research-card h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+
+        .research-card p {
+            font-size: 15px;
+            margin-bottom: 20px;
+        }
+
+        .research-link {
+            color: #4B0082;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .research-link:hover {
+            text-decoration: underline;
+        }
+
+        /* ==========================================================================
+           FILTERABLE FACULTY DIRECTORY MODULE
+           ========================================================================== */
+        .directory-filters {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background-color: #FFFFFF;
+            color: #4B0082;
+            border: 1px solid #4B0082;
+            padding: 8px 20px;
+            font-family: inherit;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background-color: #4B0082;
+            color: #FFFFFF;
+        }
+
+        .directory-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .profile-card {
+            border: 1px solid #4B0082;
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background-color: #FFFFFF;
+        }
+
+        .profile-avatar {
+            width: 60px;
+            height: 60px;
+            background-color: #4B0082;
+            color: #FFFFFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .profile-info h3 {
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+
+        .profile-dept {
+            font-size: 13px;
+        }
+
+        /* ==========================================================================
+           [SECTION 8] FOOTER ARCHITECTURE
+           ========================================================================== */
+        .site-footer {
+            background-color: #4B0082;
+            color: #FFFFFF;
+            border-top: 1px solid #4B0082;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 24px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .footer-col h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-col p {
+            font-size: 14px;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul li a {
+            color: #FFFFFF;
+            text-decoration: none;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .footer-col ul li a:hover {
+            text-decoration: underline;
+            opacity: 1;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 16px;
+        }
+
+        .social-icons a {
+            color: #FFFFFF;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .social-icons a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 24px;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 13px;
+            opacity: 0.8;
+        }
+
+        /* ==========================================================================
+           RESPONSIVE DESIGN BREAKPOINTS & RECONFIGURATIONS
+           ========================================================================== */
+        @media (max-width: 991px) {
+            .mobile-nav-toggle {
+                display: flex;
+            }
+
+            .search-container {
+                display: none;
+            }
+
+            .nav-menu {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: #4B0082;
+                border-top: 1px solid rgba(255, 255, 255, 0.2);
+                display: none;
+                flex-direction: column;
+                padding: 16px 0;
+                max-height: 450px;
+                overflow-y: auto;
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .nav-list {
+                flex-direction: column;
+                width: 100%;
+                gap: 0;
+            }
+
+            .nav-list li {
+                width: 100%;
+            }
+
+            .nav-link, .dropdown-toggle {
+                width: 100%;
+                padding: 12px 24px;
+                justify-content: space-between;
+            }
+
+            .dropdown-menu {
+                position: static;
+                width: 100%;
+                border: none;
+                background-color: rgba(255, 255, 255, 0.05);
+                padding: 0;
+            }
+
+            .dropdown-item.active .dropdown-menu {
+                display: flex;
+            }
+
+            .nested-menu {
+                padding-left: 24px;
+            }
+
+            .faculties-grid, .news-grid, .quick-links-grid, .directory-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .hero-content h1 {
+                font-size: 32px;
+            }
+            
+            .hero-tagline {
+                font-size: 16px;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .faculties-grid, .news-grid, .quick-links-grid, .research-grid, .directory-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .quick-links-grid {
+                grid-template-rows: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="announcement-banner" role="alert">
+        <p><strong>Notice:</strong> VALID Centre Opening & Academic Registrations for 2026 are now active.</p>
+    </div>
+
+    <header class="site-header">
+        <div class="header-container">
+            <div class="logo-area">
+                <svg width="40" height="40" viewBox="0 0 100 100" aria-hidden="true" fill="#FFFFFF">
+                    <polygon points="50,5 95,25 95,40 50,20 5,40 5,25" />
+                    <rect x="20" y="38" width="60" height="40" rx="2" />
+                    <path d="M50,45 L35,65 L65,65 Z" />
+                </svg>
+                <div class="logo-text">
+                    <span class="univ-title">UNIVERSITY OF VAVUNIYA</span>
+                    <span class="univ-sub">SRI LANKA</span>
+                </div>
+            </div>
+
+            <div class="search-container" role="search">
+                <input type="text" id="global-search" placeholder="Search courses, news, faculty..." aria-label="Search site content">
+                <button type="button" id="search-submit" aria-label="Submit Search">Search</button>
+            </div>
+
+            <button class="mobile-nav-toggle" aria-controls="primary-navigation" aria-expanded="false" aria-label="Toggle navigation menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+
+            <nav id="primary-navigation" class="nav-menu" aria-label="Main Navigation">
+                <ul class="nav-list">
+                    <li><a href="#" class="nav-link active">Homepage</a></li>
+                    <li class="dropdown-item">
+                        <button class="dropdown-toggle" aria-expanded="false" aria-haspopup="true">Faculties</button>
+                        <ul class="dropdown-menu">
+                            <li class="nested-dropdown">
+                                <span class="menu-subheading">Applied Sciences</span>
+                                <ul class="nested-menu">
+                                    <li><a href="#">Bio-science Department</a></li>
+                                    <li><a href="#">Environmental Science</a></li>
+                                    <li><a href="#">Computer Science</a></li>
+                                    <li><a href="#">Information Technology</a></li>
+                                    <li><a href="#">Applied Mathematics</a></li>
+                                </ul>
+                            </li>
+                            <li class="nested-dropdown">
+                                <span class="menu-subheading">Business Studies</span>
+                                <ul class="nested-menu">
+                                    <li><a href="#">Finance</a></li>
+                                    <li><a href="#">Project Management</a></li>
+                                    <li><a href="#">HR Management</a></li>
+                                    <li><a href="#">Marketing</a></li>
+                                    <li><a href="#">Business Economics</a></li>
+                                    <li><a href="#">Entrepreneurship</a></li>
+                                </ul>
+                            </li>
+                            <li class="nested-dropdown">
+                                <span class="menu-subheading">Technological Studies</span>
+                                <ul class="nested-menu">
+                                    <li><a href="#">ICT Department</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown-item">
+                        <button class="dropdown-toggle" aria-expanded="false" aria-haspopup="true">LMS Portal</button>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Student Dashboard</a></li>
+                            <li><a href="#">Faculty Dashboard</a></li>
+                            <li><a href="#">Courses & Materials</a></li>
+                            <li><a href="#">Academic Calendar</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown-item">
+                        <button class="dropdown-toggle" aria-expanded="false" aria-haspopup="true">About</button>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">History</a></li>
+                            <li><a href="#">Mission & Vision</a></li>
+                            <li><a href="#">Leadership</a></li>
+                            <li><a href="#">Campus Map</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown-item">
+                        <button class="dropdown-toggle" aria-expanded="false" aria-haspopup="true">Admission</button>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Apply Now</a></li>
+                            <li><a href="#">Requirements</a></li>
+                            <li><a href="#">Fees Structure</a></li>
+                            <li><a href="#">Scholarships</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown-item">
+                        <button class="dropdown-toggle" aria-expanded="false" aria-haspopup="true">Research</button>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Projects</a></li>
+                            <li><a href="#">Publications</a></li>
+                            <li><a href="#">Research Centers</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        
+        <section class="hero-banner" aria-label="Welcome Banner">
+            <div class="hero-content">
+                <h1>University of Vavuniya</h1>
+                <p class="hero-tagline">Higher seat of learning and research in Northern Sri Lanka</p>
+                <div class="hero-actions">
+                    <a href="#learning-portal" class="hero-btn-primary">LMS Portal</a>
+                    <a href="#quick-links" class="hero-btn-secondary">Quick Links</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="about-brief" aria-labelledby="about-heading">
+            <div class="section-container-narrow">
+                <h2 id="about-heading" class="sr-only">About The University</h2>
+                <p class="about-text">
+                    Founded on the legacy of the Vanni Kings, the University of Vavuniya is a higher seat of learning and research in this region, providing higher education in Applied Science, Business Management, and Technological Studies.
+                </p>
+            </div>
+        </section>
+
+        <hr class="section-divider">
+
+        <section class="faculties-section" aria-labelledby="faculties-heading">
+            <div class="section-container">
+                <h2 id="faculties-heading" class="section-title">Our Faculties</h2>
+                <div class="faculties-grid">
+                    <div class="faculty-card">
+                        <h3>Faculty of Applied Sciences</h3>
+                        <p>Exploring innovation through biological sciences, computing, and mathematical frameworks.</p>
+                        <a href="#" class="card-link">Explore Programs</a>
+                    </div>
+                    <div class="faculty-card">
+                        <h3>Faculty of Business Studies</h3>
+                        <p>Shaping the next generation of global leaders, financial strategists, and enterprise entrepreneurs.</p>
+                        <a href="#" class="card-link">Explore Programs</a>
+                    </div>
+                    <div class="faculty-card">
+                        <h3>Faculty of Technological Studies</h3>
+                        <p>Driving technological advancements through specialized information and communication pathways.</p>
+                        <a href="#" class="card-link">Explore Programs</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="learning-portal" class="lms-integration-section" aria-labelledby="lms-heading">
+            <div class="section-container-narrow">
+                <h2 id="lms-heading" class="sr-only">Learning Management System</h2>
+                <div class="lms-wrapper">
+                    <a href="#" class="lms-main-button">Access Learning Portal</a>
+                    <p class="lms-subtext">Access course materials, assignments, and grades asynchronously.</p>
+                </div>
+            </div>
+        </section>
+
+        <hr class="section-divider">
+
+        <section class="news-section" aria-labelledby="news-heading">
+            <div class="section-container">
+                <div class="section-header-row">
+                    <h2 id="news-heading" class="section-title">Latest News</h2>
+                    <a href="#" class="section-action-link">View All News</a>
+                </div>
+                <div class="news-grid">
+                    <article class="news-card">
+                        <span class="news-date">June 14, 2026</span>
+                        <h3>VALID Centre Opening</h3>
+                        <p>The state-of-the-art Vocational Advancement and Language Infrastructure Development hub is now functional.</p>
+                    </article>
+                    <article class="news-card">
+                        <span class="news-date">June 08, 2026</span>
+                        <h3>Research Grants 2026</h3>
+                        <p>Applications are officially open for faculty members targeting sustainable technologies in Northern Sri Lanka.</p>
+                    </article>
+                    <article class="news-card">
+                        <span class="news-date">May 29, 2026</span>
+                        <h3>International Symposium</h3>
+                        <p>Join world-class scholars this coming semester to analyze micro-economic trends within evolving ecosystems.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="quick-links" class="quick-links-section" aria-labelledby="links-heading">
+            <div class="section-container">
+                <h2 id="links-heading" class="section-title">Quick Links</h2>
+                <div class="quick-links-grid">
+                    <a href="#" class="quick-link-card">
+                        <span class="quick-link-icon">↗</span>
+                        <span class="quick-link-title">Admissions</span>
+                    </a>
+                    <a href="#" class="quick-link-card">
+                        <span class="quick-link-icon">↗</span>
+                        <span class="quick-link-title">Library</span>
+                    </a>
+                    <a href="#" class="quick-link-card">
+                        <span class="quick-link-icon">↗</span>
+                        <span class="quick-link-title">Research</span>
+                    </a>
+                    <a href="#" class="quick-link-card">
+                        <span class="quick-link-icon">↗</span>
+                        <span class="quick-link-title">Contact</span>
+                    </a>
+                    <a href="#" class="quick-link-card">
+                        <span class="quick-link-icon">↗</span>
+                        <span class="quick-link-title">Hostel</span>
+                    </a>
+                    <a href="#" class="quick-link-card">
+                        <span class="quick-link-icon">↗</span>
+                        <span class="quick-link-title">Scholarship</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="research-section" aria-labelledby="research-heading">
+            <div class="section-container">
+                <h2 id="research-heading" class="section-title">Research Highlights</h2>
+                <div class="research-grid">
+                    <div class="research-card">
+                        <h3>Eco-System Innovations</h3>
+                        <p>An in-depth multi-department analytical look at sustainable infrastructure models across modern arid climates.</p>
+                        <a href="#" class="research-link">Read More</a>
+                    </div>
+                    <div class="research-card">
+                        <h3>Machine Learning in ICT</h3>
+                        <p>Optimizing decentralized networks to enhance educational deliveries within data-sparse geographical regions.</p>
+                        <a href="#" class="research-link">Read More</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="directory-section" aria-labelledby="directory-heading">
+            <div class="section-container">
+                <h2 id="directory-heading" class="section-title">Faculty Directory</h2>
+                
+                <div class="directory-filters">
+                    <button class="filter-btn active" data-filter="all">All Faculties</button>
+                    <button class="filter-btn" data-filter="applied">Applied Science</button>
+                    <button class="filter-btn" data-filter="business">Business Studies</button>
+                    <button class="filter-btn" data-filter="technological">Technological</button>
+                </div>
+
+                <div class="directory-grid" id="directory-grid">
+                    <div class="profile-card" data-faculty="applied">
+                        <div class="profile-avatar">AV</div>
+                        <div class="profile-info">
+                            <h3>Prof. A. Vavuniya</h3>
+                            <p class="profile-dept">Bio-science Department</p>
+                        </div>
+                    </div>
+                    <div class="profile-card" data-faculty="business">
+                        <div class="profile-avatar">MB</div>
+                        <div class="profile-info">
+                            <h3>Dr. M. Business</h3>
+                            <p class="profile-dept">Finance Department</p>
+                        </div>
+                    </div>
+                    <div class="profile-card" data-faculty="technological">
+                        <div class="profile-avatar">TS</div>
+                        <div class="profile-info">
+                            <h3>Eng. T. Tech</h3>
+                            <p class="profile-dept">ICT Department</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-col contact-info">
+                <h3>Contact Us</h3>
+                <p>Phone: +94 24 222 2222</p>
+                <p>Email: info@vau.ac.lk</p>
+                <p>Location: Pambaimadu, Vavuniya, 43000, Sri Lanka</p>
+            </div>
+            <div class="footer-col links-list">
+                <h3>Quick Resource Navigation</h3>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Use</a></li>
+                    <li><a href="#">Webmaster Link</a></li>
+                    <li><a href="#">Alumni Portal</a></li>
+                    <li><a href="#">Staff Webmail</a></li>
+                </ul>
+            </div>
+            <div class="footer-col social-media">
+                <h3>Social Connections</h3>
+                <div class="social-icons">
+                    <a href="#" aria-label="Facebook (White Icon Blueprint)">[FB]</a>
+                    <a href="#" aria-label="LinkedIn (White Icon Blueprint)">[LN]</a>
+                    <a href="#" aria-label="X / Twitter (White Icon Blueprint)">[X]</a>
+                    <a href="#" aria-label="YouTube (White Icon Blueprint)">[YT]</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 University of Vavuniya. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            /* ==========================================================================
+               MOBILE NAVIGATION TRIGGER (HAMBURGER CONSOLE)
+               ========================================================================== */
+            const mobileToggle = document.querySelector('.mobile-nav-toggle');
+            const primaryNav = document.getElementById('primary-navigation');
+
+            if (mobileToggle && primaryNav) {
+                mobileToggle.addEventListener('click', () => {
+                    const isExpanded = mobileToggle.getAttribute('aria-expanded') === 'true';
+                    mobileToggle.setAttribute('aria-expanded', !isExpanded);
+                    primaryNav.classList.toggle('active');
+                    mobileToggle.classList.toggle('open');
+                });
+            }
+
+            /* ==========================================================================
+               TOUCH-RESPONSIVE ACCESSIBLE DROPDOWN CONTROLS
+               ========================================================================== */
+            const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+
+            dropdownToggles.forEach(toggle => {
+                toggle.addEventListener('click', (e) => {
+                    if (window.innerWidth < 992) {
+                        e.preventDefault();
+                        const parentItem = toggle.closest('.dropdown-item');
+                        const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
+                        
+                        toggle.setAttribute('aria-expanded', !isExpanded);
+                        parentItem.classList.toggle('active');
+                        
+                        dropdownToggles.forEach(sibling => {
+                            if (sibling !== toggle) {
+                                sibling.setAttribute('aria-expanded', 'false');
+                                sibling.closest('.dropdown-item').classList.remove('active');
+                            }
+                        });
+                    }
+                });
+            });
+
+            /* ==========================================================================
+               SMOOTH IN-PAGE ANCHOR SCROLLING
+               ========================================================================== */
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        e.preventDefault();
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                        
+                        if (primaryNav && primaryNav.classList.contains('active')) {
+                            primaryNav.classList.remove('active');
+                            mobileToggle.setAttribute('aria-expanded', 'false');
+                        }
+                    }
+                });
+            });
+
+            /* ==========================================================================
+               SEARCH FUNCTIONALITY EMULATION ENGINE
+               ========================================================================== */
+            const searchInput = document.getElementById('global-search');
+            const searchButton = document.getElementById('search-submit');
+
+            if (searchInput && searchButton) {
+                const executeSearch = () => {
+                    const query = searchInput.value.trim();
+                    if (query !== "") {
+                        alert(`Search Execution: Fetching database results matching "${query}" using restricted Purple/White parameters.`);
+                    }
+                };
+
+                searchButton.addEventListener('click', executeSearch);
+                searchInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        executeSearch();
+                    }
+                });
+            }
+
+            /* ==========================================================================
+               FILTERABLE FACULTY DIRECTORY MATRIX
+               ========================================================================== */
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const profileCards = document.querySelectorAll('.profile-card');
+
+            filterButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterButtons.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    const filterValue = btn.getAttribute('data-filter');
+
+                    profileCards.forEach(card => {
+                        const facultyTarget = card.getAttribute('data-faculty');
+                        if (filterValue === 'all' || facultyTarget === filterValue) {
+                            card.style.display = 'flex';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

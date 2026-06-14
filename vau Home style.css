@@ -1,0 +1,787 @@
+/* ==========================================================================
+   RESET & SYSTEM BASIS
+   ========================================================================== */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #FFFFFF;
+    color: #4B0082;
+    line-height: 1.6;
+    font-size: 16px;
+    overflow-x: hidden;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+/* ==========================================================================
+   LAYOUT STRUCTURE CONTAINERS
+   ========================================================================== */
+.section-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 24px;
+}
+
+.section-container-narrow {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 24px;
+    text-align: center;
+}
+
+.section-title {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 32px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.section-divider {
+    border: 0;
+    border-top: 1px solid #4B0082;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* ==========================================================================
+   CRITICAL ANNOUNCEMENT BANNER
+   ========================================================================== */
+.announcement-banner {
+    background-color: #4B0082;
+    color: #FFFFFF;
+    text-align: center;
+    padding: 10px 24px;
+    font-size: 14px;
+    border-bottom: 1px solid #FFFFFF;
+}
+
+/* ==========================================================================
+   HEADER & SEARCH BAR
+   ========================================================================== */
+.site-header {
+    background-color: #4B0082;
+    color: #FFFFFF;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid #4B0082;
+}
+
+.header-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+    position: relative;
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.univ-title {
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: 0.5px;
+}
+
+.univ-sub {
+    font-size: 11px;
+    letter-spacing: 2px;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    border: 1px solid #FFFFFF;
+    background-color: #4B0082;
+}
+
+.search-container input {
+    background: transparent;
+    border: none;
+    padding: 8px 12px;
+    color: #FFFFFF;
+    font-family: inherit;
+    font-size: 14px;
+}
+
+.search-container input::placeholder {
+    color: #FFFFFF;
+    opacity: 0.7;
+}
+
+.search-container input:focus {
+    outline: none;
+}
+
+.search-container button {
+    background-color: #FFFFFF;
+    color: #4B0082;
+    border: none;
+    padding: 8px 16px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.search-container button:hover {
+    background-color: #4B0082;
+    color: #FFFFFF;
+    outline: 1px solid #FFFFFF;
+}
+
+/* ==========================================================================
+   NAVIGATION DESKTOP SYSTEM
+   ========================================================================== */
+.nav-list {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    gap: 8px;
+}
+
+.nav-link, .dropdown-toggle {
+    background: transparent;
+    border: none;
+    color: #FFFFFF;
+    padding: 8px 16px;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.nav-link:hover, .dropdown-toggle:hover, .dropdown-item:hover .dropdown-toggle {
+    background-color: #FFFFFF;
+    color: #4B0082;
+}
+
+.dropdown-item {
+    position: relative;
+}
+
+/* Dropdown Menu Overlay Panel */
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #4B0082;
+    border: 1px solid #FFFFFF;
+    min-width: 260px;
+    list-style: none;
+    display: none;
+    flex-direction: column;
+    padding: 8px 0;
+    box-shadow: none;
+}
+
+.dropdown-menu li a {
+    color: #FFFFFF;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-size: 14px;
+    display: block;
+}
+
+.dropdown-menu li a:hover {
+    background-color: #FFFFFF;
+    color: #4B0082;
+}
+
+/* Nested Megamenu Architecture for Complex Course Structures */
+.menu-subheading {
+    font-weight: 700 !important;
+    text-transform: uppercase;
+    font-size: 12px !important;
+    letter-spacing: 0.5px;
+    background-color: #4B0082;
+    color: #FFFFFF !important;
+    cursor: default;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.nested-menu {
+    list-style: none;
+    padding-left: 12px;
+    margin-bottom: 8px;
+}
+
+.nested-menu li a {
+    padding: 6px 20px !important;
+    font-size: 13px !important;
+}
+
+/* Desktop Hover Mechanism via CSS fallback if JS fails */
+@media (min-width: 992px) {
+    .dropdown-item:hover .dropdown-menu {
+        display: flex;
+    }
+}
+
+/* Mobile Toggle Layout Elements */
+.mobile-nav-toggle {
+    display: none;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 6px;
+    padding: 4px;
+}
+
+.hamburger-line {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background-color: #FFFFFF;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+/* ==========================================================================
+   [SECTION 1] HERO BANNER
+   ========================================================================== */
+.hero-banner {
+    background-color: #4B0082;
+    color: #FFFFFF;
+    padding: 80px 24px;
+    text-align: center;
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-content h1 {
+    font-size: 42px;
+    font-weight: 700;
+    margin-bottom: 16px;
+}
+
+.hero-tagline {
+    font-size: 18px;
+    max-width: 600px;
+    margin: 0 auto 32px auto;
+    opacity: 0.9;
+}
+
+.hero-actions {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+}
+
+.hero-btn-primary {
+    background-color: #FFFFFF;
+    color: #4B0082;
+    text-decoration: none;
+    padding: 12px 28px;
+    font-weight: 700;
+    border: 2px solid #FFFFFF;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.hero-btn-primary:hover {
+    background-color: #4B0082;
+    color: #FFFFFF;
+}
+
+.hero-btn-secondary {
+    background-color: #4B0082;
+    color: #FFFFFF;
+    text-decoration: none;
+    padding: 12px 28px;
+    font-weight: 700;
+    border: 2px solid #FFFFFF;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.hero-btn-secondary:hover {
+    background-color: #FFFFFF;
+    color: #4B0082;
+}
+
+/* ==========================================================================
+   [SECTION 2] ABOUT BRIEF
+   ========================================================================== */
+.about-text {
+    font-size: 20px;
+    color: #4B0082;
+    font-weight: 400;
+    line-height: 1.6;
+}
+
+/* ==========================================================================
+   [SECTION 3] FACULTIES GRID
+   ========================================================================== */
+.faculties-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.faculty-card {
+    background-color: #FFFFFF;
+    border: 2px solid #4B0082;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.faculty-card h3 {
+    font-size: 22px;
+    margin-bottom: 16px;
+}
+
+.faculty-card p {
+    margin-bottom: 24px;
+    font-size: 15px;
+}
+
+.card-link {
+    color: #4B0082;
+    font-weight: 700;
+    text-decoration: none;
+    border-bottom: 2px solid #4B0082;
+    padding-bottom: 2px;
+}
+
+.faculty-card:hover {
+    background-color: #4B0082;
+    color: #FFFFFF;
+}
+
+.faculty-card:hover .card-link {
+    color: #FFFFFF;
+    border-color: #FFFFFF;
+}
+
+/* ==========================================================================
+   [SECTION 4] LMS ACCESS CONSOLE
+   ========================================================================== */
+.lms-integration-section {
+    padding: 40px 24px;
+}
+
+.lms-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.lms-main-button {
+    background-color: #4B0082;
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 700;
+    padding: 16px 40px;
+    border: 2px solid #4B0082;
+    display: inline-block;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.lms-main-button:hover {
+    background-color: #FFFFFF;
+    color: #4B0082;
+}
+
+.lms-subtext {
+    font-size: 14px;
+    color: #4B0082;
+}
+
+/* ==========================================================================
+   [SECTION 5] NEWS & ANNOUNCEMENTS
+   ========================================================================== */
+.section-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+}
+
+.section-header-row .section-title {
+    margin-bottom: 0;
+}
+
+.section-action-link {
+    color: #4B0082;
+    font-weight: 700;
+    text-decoration: none;
+    border-bottom: 2px solid #4B0082;
+}
+
+.section-action-link:hover {
+    border-bottom-style: dashed;
+}
+
+.news-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.news-card {
+    border: 1px solid #4B0082;
+    padding: 24px;
+    background-color: #FFFFFF;
+}
+
+.news-date {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.news-card h3 {
+    font-size: 18px;
+    margin-bottom: 12px;
+}
+
+.news-card p {
+    font-size: 14px;
+}
+
+/* ==========================================================================
+   [SECTION 6] QUICK ACTIONS GRID (2x3 Layout Matrix)
+   ========================================================================== */
+.quick-links-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, minmax(120px, auto));
+    gap: 16px;
+}
+
+.quick-link-card {
+    border: 1px solid #4B0082;
+    background-color: #FFFFFF;
+    color: #4B0082;
+    text-decoration: none;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.quick-link-icon {
+    font-size: 20px;
+    font-weight: 700;
+    align-self: flex-end;
+}
+
+.quick-link-title {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.quick-link-card:hover {
+    background-color: #4B0082;
+    color: #FFFFFF;
+}
+
+/* ==========================================================================
+   [SECTION 7] RESEARCH SPOTLIGHT
+   ========================================================================== */
+.research-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+}
+
+.research-card {
+    border: 1px solid #4B0082;
+    padding: 32px;
+    background-color: #FFFFFF;
+}
+
+.research-card h3 {
+    font-size: 20px;
+    margin-bottom: 12px;
+}
+
+.research-card p {
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+
+.research-link {
+    color: #4B0082;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.research-link:hover {
+    text-decoration: underline;
+}
+
+/* ==========================================================================
+   FILTERABLE FACULTY DIRECTORY MODULE
+   ========================================================================== */
+.directory-filters {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    background-color: #FFFFFF;
+    color: #4B0082;
+    border: 1px solid #4B0082;
+    padding: 8px 20px;
+    font-family: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.filter-btn.active, .filter-btn:hover {
+    background-color: #4B0082;
+    color: #FFFFFF;
+}
+
+.directory-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.profile-card {
+    border: 1px solid #4B0082;
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background-color: #FFFFFF;
+}
+
+.profile-avatar {
+    width: 60px;
+    height: 60px;
+    background-color: #4B0082;
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.profile-info h3 {
+    font-size: 16px;
+    margin-bottom: 4px;
+}
+
+.profile-dept {
+    font-size: 13px;
+}
+
+/* ==========================================================================
+   [SECTION 8] FOOTER ARCHITECTURE
+   ========================================================================== */
+.site-footer {
+    background-color: #4B0082;
+    color: #FFFFFF;
+    border-top: 1px solid #4B0082;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 24px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+}
+
+.footer-col h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.footer-col p {
+    font-size: 14px;
+    margin-bottom: 10px;
+    opacity: 0.9;
+}
+
+.footer-col ul {
+    list-style: none;
+}
+
+.footer-col ul li {
+    margin-bottom: 10px;
+}
+
+.footer-col ul li a {
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+.footer-col ul li a:hover {
+    text-decoration: underline;
+    opacity: 1;
+}
+
+.social-icons {
+    display: flex;
+    gap: 16px;
+}
+
+.social-icons a {
+    color: #FFFFFF;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.social-icons a:hover {
+    text-decoration: underline;
+}
+
+.footer-bottom {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px;
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    font-size: 13px;
+    opacity: 0.8;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN BREAKPOINTS & RECONFIGURATIONS
+   ========================================================================== */
+@media (max-width: 991px) {
+    .mobile-nav-toggle {
+        display: flex;
+    }
+
+    .search-container {
+        display: none; /* Collapsed on tablets to maximize space */
+    }
+
+    .nav-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: #4B0082;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+        display: none;
+        flex-direction: column;
+        padding: 16px 0;
+        max-height: 80px;
+        overflow-y: auto;
+    }
+
+    .nav-menu.active {
+        display: flex;
+    }
+
+    .nav-list {
+        flex-direction: column;
+        width: 100%;
+        gap: 0;
+    }
+
+    .nav-list li {
+        width: 100%;
+    }
+
+    .nav-link, .dropdown-toggle {
+        width: 100%;
+        padding: 12px 24px;
+        justify-content: space-between;
+    }
+
+    .dropdown-menu {
+        position: static;
+        width: 100%;
+        border: none;
+        background-color: rgba(255, 255, 255, 0.05);
+        padding: 0;
+    }
+
+    .dropdown-item.active .dropdown-menu {
+        display: flex;
+    }
+
+    .nested-menu {
+        padding-left: 24px;
+    }
+
+    .faculties-grid, .news-grid, .quick-links-grid, .directory-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .footer-container {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+}
+
+@media (max-width: 640px) {
+    .hero-content h1 {
+        font-size: 32px;
+    }
+    
+    .hero-tagline {
+        font-size: 16px;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .faculties-grid, .news-grid, .quick-links-grid, .research-grid, .directory-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .quick-links-grid {
+        grid-template-rows: auto;
+    }
+}

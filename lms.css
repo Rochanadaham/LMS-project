@@ -1,0 +1,372 @@
+/* ==========================================================================
+   VAVUNIYA UNIVERSITY LMS - CORE STYLESHEET
+   STRICT COLOR CONSTRAINT: PURPLE (#4B0082) & WHITE (#FFFFFF) ONLY
+   ========================================================================== */
+
+:root {
+    --purple-primary: #4B0082;
+    --white: #FFFFFF;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', 'Roboto', 'Open Sans', sans-serif;
+}
+
+body {
+    background-color: var(--white);
+    color: var(--purple-primary);
+    overflow-x: hidden;
+}
+
+/* --- Common Layout Elements --- */
+.app-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Header Navbar */
+.top-navbar {
+    background-color: var(--purple-primary);
+    color: var(--white);
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 24px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    border-bottom: 2px solid var(--white);
+}
+
+.nav-brand {
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-search {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.nav-search input {
+    background-color: var(--white);
+    border: 1px solid var(--purple-primary);
+    color: var(--purple-primary);
+    padding: 8px 16px;
+    border-radius: 4px;
+    outline: none;
+}
+
+.nav-search button {
+    background-color: var(--purple-primary);
+    color: var(--white);
+    border: 1px solid var(--white);
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.nav-icon-btn {
+    background: none;
+    border: none;
+    color: var(--white);
+    cursor: pointer;
+    font-size: 16px;
+    position: relative;
+}
+
+.nav-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 2px solid var(--white);
+    background-color: var(--purple-primary);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+/* Sidebar Navigation */
+.sidebar {
+    background-color: var(--purple-primary);
+    color: var(--white);
+    width: 260px;
+    position: fixed;
+    top: 70px;
+    bottom: 0;
+    left: 0;
+    padding: 24px 0;
+    z-index: 900;
+    transition: transform 0.3s ease;
+}
+
+.sidebar-menu {
+    list-style: none;
+}
+
+.sidebar-item a {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 24px;
+    color: var(--white);
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.sidebar-item.active a,
+.sidebar-item a:hover {
+    background-color: var(--white);
+    color: var(--purple-primary);
+}
+
+/* Main Workspace */
+.main-content {
+    margin-top: 70px;
+    margin-left: 260px;
+    padding: 40px;
+    width: calc(100% - 260px);
+    background-color: var(--white);
+}
+
+/* --- Typography & Headings --- */
+h1 { font-size: 32px; font-weight: 700; color: var(--purple-primary); margin-bottom: 24px; }
+h2 { font-size: 24px; font-weight: 700; color: var(--purple-primary); margin-bottom: 20px; margin-top: 40px; }
+h3 { font-size: 18px; font-weight: 600; color: var(--purple-primary); margin-bottom: 12px; }
+p { font-size: 16px; color: var(--purple-primary); line-height: 1.6; }
+
+/* --- UI Controls (Buttons, Inputs, Cards) --- */
+.btn-primary {
+    background-color: var(--purple-primary);
+    color: var(--white);
+    border: 2px solid var(--purple-primary);
+    padding: 12px 24px;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--white);
+    color: var(--purple-primary);
+}
+
+.btn-secondary {
+    background-color: var(--white);
+    color: var(--purple-primary);
+    border: 2px solid var(--purple-primary);
+    padding: 12px 24px;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+    background-color: var(--purple-primary);
+    color: var(--white);
+}
+
+.input-field {
+    background-color: var(--white);
+    border: 1px solid var(--purple-primary);
+    color: var(--purple-primary);
+    padding: 12px;
+    width: 100%;
+    border-radius: 4px;
+    font-size: 16px;
+    outline: none;
+}
+
+.input-field:focus {
+    border: 2px solid var(--purple-primary);
+}
+
+.input-field::placeholder {
+    color: var(--purple-primary);
+    opacity: 0.5;
+}
+
+/* Card Architectures */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+.card {
+    background-color: var(--white);
+    border: 2px solid var(--purple-primary);
+    border-radius: 4px;
+    padding: 20px;
+}
+
+.card-header-bg {
+    background-color: var(--purple-primary);
+    color: var(--white);
+    padding: 12px 20px;
+    margin: -20px -20px 20px -20px;
+    font-weight: bold;
+}
+
+/* Data Tables */
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 16px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--white);
+}
+
+th, td {
+    border: 1px solid var(--purple-primary);
+    padding: 12px 16px;
+    text-align: left;
+    font-size: 16px;
+}
+
+th {
+    background-color: var(--purple-primary);
+    color: var(--white);
+    font-weight: 600;
+}
+
+td {
+    color: var(--purple-primary);
+}
+
+tr:hover td {
+    background-color: var(--purple-primary);
+    color: var(--white);
+}
+
+/* Progress System */
+.progress-container {
+    background-color: rgba(75, 0, 130, 0.2);
+    border-radius: 4px;
+    width: 100%;
+    height: 12px;
+    margin-top: 8px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    background-color: var(--purple-primary);
+    height: 100%;
+    width: 0%;
+    transition: width 0.4s ease;
+}
+
+/* Tabs Navigation System */
+.tab-container {
+    display: flex;
+    border-bottom: 2px solid var(--purple-primary);
+    margin-bottom: 24px;
+    gap: 8px;
+}
+
+.tab-link {
+    background-color: var(--white);
+    color: var(--purple-primary);
+    border: none;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.tab-link.active {
+    background-color: var(--purple-primary);
+    color: var(--white);
+}
+
+/* --- Authentication Layout --- */
+.login-body {
+    background-color: var(--purple-primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.login-wrapper {
+    background-color: var(--white);
+    border-radius: 4px;
+    padding: 40px;
+    width: 100%;
+    max-width: 450px;
+    text-align: center;
+    box-shadow: none;
+    border: 4px solid var(--white);
+}
+
+.login-logo {
+    font-size: 48px;
+    font-weight: bold;
+    color: var(--purple-primary);
+    margin-bottom: 12px;
+}
+
+.login-title {
+    font-size: 24px;
+    color: var(--purple-primary);
+    font-weight: 700;
+    margin-bottom: 32px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    color: var(--purple-primary);
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.login-links {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.login-links a {
+    color: var(--purple-primary);
+    text-decoration: underline;
+    font-size: 14px;
+}
+
+/* Responsive Grid Control */
+@media (max-width: 992px) {
+    .sidebar { transform: translateX(-100%); }
+    .sidebar.active { transform: translateX(0); }
+    .main-content { margin-left: 0; width: 100%; padding: 20px; }
+}

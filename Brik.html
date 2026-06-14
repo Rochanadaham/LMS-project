@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brik Developers | Liquid Motion</title>
+    <style>
+        :root {
+            --bg-color: #000000;
+            --accent-color: #0095ff;
+            --text-main: #ffffff;
+            --text-dim: #b3b3b3;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Inter', -apple-system, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+        }
+
+        /* The Gooey Container */
+        .liquid-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            /* Applying the SVG filter defined below */
+            filter: url('#gooey');
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        /* The two halves of your logo */
+        .shape {
+            position: absolute;
+            width: 140px;
+            height: 40px;
+            background: var(--accent-color);
+            border-radius: 50px;
+            animation: melt 4s infinite ease-in-out;
+        }
+
+        .shape::after {
+            content: '';
+            position: absolute;
+            width: 140px;
+            height: 40px;
+            background: var(--accent-color);
+            border-radius: 50px;
+            transform: rotate(90deg);
+            top: 50px;
+            left: 50px;
+        }
+
+        /* Distinct movement for the "melting" look */
+        .shape-1 {
+            transform: translate(-30px, -30px) rotate(-45deg);
+        }
+
+        .shape-2 {
+            transform: translate(30px, 30px) rotate(-45deg) scaleX(-1);
+            animation-delay: -2s;
+        }
+
+        @keyframes melt {
+            0%, 100% { transform: translate(-40px, -40px) rotate(-45deg); }
+            50% { transform: translate(10px, 10px) rotate(-45deg); }
+        }
+
+        .description {
+            max-width: 600px;
+            line-height: 1.6;
+            color: var(--text-dim);
+            font-size: 0.95rem;
+            padding: 0 20px;
+        }
+
+        .contact {
+            margin-top: 1.5rem;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .social-links {
+            margin-top: 2rem;
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            border: 1px solid #333;
+            padding: 8px 20px;
+            border-radius: 20px;
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            border-color: var(--accent-color);
+            color: white;
+            background: rgba(0, 149, 255, 0.1);
+        }
+
+        /* SVG Filter Hidden */
+        svg {
+            position: absolute;
+            visibility: hidden;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Brik Developers </h1>
+
+    <div class="liquid-container">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+    </div>
+
+    <p class="description">
+        We are Brik, a creative development collective specializing in high-performance digital experiences. 
+        From fluid interfaces to robust backend architectures, we build the foundations of the modern web. 
+        With a focus on innovation and precision, we turn complex problems into liquid solutions.
+    </p>
+
+    <a href="mailto:hello@brik.io" class="contact">🤝 Let's collaborate : hello@brik.io</a>
+
+    <div class="social-links">
+        <a href="#" class="btn">Telegram</a>
+        <a href="#" class="btn">Github</a>
+        <a href="#" class="btn">Linkedin</a>
+        <a href="#" class="btn">WhatsApp</a>
+    </div>
+
+    <!-- The Secret Sauce: SVG Gooey Filter -->
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+        <defs>
+            <filter id="gooey">
+                <!-- Blur the objects -->
+                <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+                <!-- Increase contrast to sharpen the blurred edges -->
+                <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="gooey" />
+                <!-- Blend the result back -->
+                <feComposite in="SourceGraphic" in2="gooey" operator="atop" />
+            </filter>
+        </defs>
+    </svg>
+
+</body>
+</html>
