@@ -1,100 +1,44 @@
-// =============================================================================
-// loging.js — Authentication & Login Logic
-// FIXED: Removed hardcoded localhost:3000 and old subfolder paths.
-// Uses a dynamic API_BASE that works on localhost AND on any deployed server.
-// =============================================================================
+// Dynamic Base API URL configuration block
+// When running locally on your computer, it connects to localhost backend.
+// When hosted, change the production URL string to your live Backend deployment link (Render/Railway).
+const CONFIG = {
+    API_BASE_URL: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+        ? 'http://localhost:3000'
+        : 'https://your-backend-api-service.onrender.com' // Replace with your actual live backend link later
+};
 
-// ─── Dynamic API Base Configuration ──────────────────────────────────────────
-// On GitHub Pages (static only) this won't reach a real backend.
-// When running locally with Node/Express, it hits your local server.
-// When deployed to a live server, update PRODUCTION_API_URL below.
+document.getElementById('loginForm')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
 
-const PRODUCTION_API_URL = ''; // e.g. 'https://your-api-server.com' — leave blank if same origin
+    try {
+        // Dynamic fetch calling backend routing mechanisms 
+        const response = await fetch(`${CONFIG.API_BASE_URL}/api/auth/login`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password })
+        });
 
-const API_BASE = (() => {
-  if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-    return 'http://localhost:3000'; // Local Express server
-  }
-  return PRODUCTION_API_URL || window.location.origin; // Same-origin fallback
-})();
+        const data = await response.json();
 
-// ─── Helper: Make API calls ───────────────────────────────────────────────────
-async function apiPost(endpoint, body) {
-  const response = await fetch(`${API_BASE}${endpoint}`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    credentials: 'include', // Send cookies for session-based auth
-    body: JSON.stringify(body)
-  });
-  if (!response.ok) {
-    const err = await response.json().catch(() => ({ message: 'Server error' }));
-    throw new Error(err.message || `HTTP ${response.status}`);
-  }
-  return response.json();
-}
-
-async function apiGet(endpoint) {
-  const response = await fetch(`${API_BASE}${endpoint}`, {
-    method: 'GET',
-    credentials: 'include'
-  });
-  if (!response.ok) throw new Error(`HTTP ${response.status}`);
-  return response.json();
-}
-
-// ─── Login Handler ────────────────────────────────────────────────────────────
-async function handleLogin(event) {
-  if (event) event.preventDefault();
-
-  const username = document.getElementById('username')?.value?.trim();
-  const password = document.getElementById('password')?.value?.trim();
-  const errorEl  = document.getElementById('login-error');
-
-  if (!username || !password) {
-    if (errorEl) errorEl.textContent = 'Please enter your username and password.';
-    return;
-  }
-
-  try {
-    // FIXED: was '/LMS/API/login' or 'localhost:3000/login' — now uses API_BASE
-    const data = await apiPost('/api/login', { username, password });
-
-    if (data.role === 'student') {
-      // FIXED: was 'LMS/Public/stu dashboard 10.html' — now root-relative
-      window.location.href = 'stu dashboard 10.html';
-    } else if (data.role === 'faculty') {
-      window.location.href = 'faculty-dashboard.html';
-    } else if (data.role === 'admin') {
-      window.location.href = 'admin-dashboard.html';
-    } else {
-      window.location.href = 'index.html';
+        if (response.ok && data.token) {
+            localStorage.setItem('token', data.token);
+            
+            // Fixed Redirection Router Paths mapped for the single root directory layout
+            if (data.role === 'admin') {
+                window.location.href = 'admin-dashboard.html';
+            } else if (data.role === 'faculty') {
+                window.location.href = 'faculty-dashboard.html';
+            } else if (data.role === 'student') {
+                window.location.href = 'stu%20dashboard%2010.html'; // Properly escaped space for browser redirection
+            }
+        } else {
+            alert(data.message || 'Login credentials invalid');
+        }
+    } catch (err) {
+        console.error('Authentication transmission error:', err);
+        alert('Could not connect to the authentication server.');
     }
-  } catch (err) {
-    console.error('Login error:', err);
-    if (errorEl) errorEl.textContent = err.message || 'Login failed. Please try again.';
-  }
-}
-
-// ─── Logout Handler ───────────────────────────────────────────────────────────
-async function handleLogout() {
-  try {
-    await apiPost('/api/logout', {});
-  } catch (e) {
-    // Ignore logout errors — just redirect
-  }
-  // FIXED: was absolute path — now root-relative
-  window.location.href = 'loging 1.html';
-}
-
-// ─── Auto-attach form listener on DOMContentLoaded ───────────────────────────
-document.addEventListener('DOMContentLoaded', () => {
-  const loginForm = document.getElementById('login-form');
-  if (loginForm) {
-    loginForm.addEventListener('submit', handleLogin);
-  }
-
-  const logoutBtn = document.getElementById('logout-btn');
-  if (logoutBtn) {
-    logoutBtn.addEventListener('click', handleLogout);
-  }
 });
